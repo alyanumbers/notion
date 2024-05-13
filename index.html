@@ -147,7 +147,7 @@ Source https://codepen.io/ismailvtl/pen/KrVrbp
 function CalendarControl() {
   const calendar = new Date("1069");
   const calendarControl = {
-    localDate: new Date(),
+    localDate: new Date("1069"),
     calWeekDays: ["Saursdag", "Maundag", "Trisdag", "Ournsdag", "Thorsdag", "Frosdag", "Larsdag"],
     calMonthName: [
       "Deepwinter",
@@ -196,7 +196,7 @@ function CalendarControl() {
     },
     navigateToCurrentMonth: function() {
       let currentMonth = calendarControl.localDate.getMonth();
-      let currentYear = calendarControl.localDate.getFullYear()-955;
+      let currentYear = calendarControl.localDate.getFullYear();
       calendar.setMonth(currentMonth);
       calendar.setYear(currentYear);
       calendarControl.attachEventsOnNextPrev();
