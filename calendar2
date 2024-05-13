@@ -1,0 +1,1120 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="All-in-One Fantasy Calendar Generator - Creation of calendars and time-tracking in your homebrew or pre-made campaign worlds has never been easier!">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="GmCXlFG1MH0UtMQeJZg44aj7U9CYq96OVKXEQPSv">
+
+    <meta property="og:title" content="Vethera calendar">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://app.fantasy-calendar.com/calendars/67c8eeb8fd044f165dd03df358662f21">
+    <meta property="og:image" content="https://app.fantasy-calendar.com/resources/logo_discord.jpg">
+    <meta property="og:description" content="All-in-One Fantasy Calendar Generator - Creation of calendars and time-tracking in your homebrew or pre-made campaign worlds has never been easier!">
+
+    
+    <title>
+        Vethera calendar - Fantasy Calendar
+    </title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://app.fantasy-calendar.com/resources/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://app.fantasy-calendar.com/resources/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://app.fantasy-calendar.com/resources/favicon-16x16.png">
+    <link rel="manifest" href="https://app.fantasy-calendar.com/resources/site.webmanifest">
+    <link rel="mask-icon" href="https://app.fantasy-calendar.com/resources/safari-pinned-tab.svg" color="#2f855a">
+    <link rel="shortcut icon" href="https://app.fantasy-calendar.com/resources/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="Fantasy Calendar">
+    <meta name="application-name" content="Fantasy Calendar">
+    <meta name="msapplication-TileColor" content="#2f855a">
+    <meta name="msapplication-config" content="https://app.fantasy-calendar.com/resources/browserconfig.xml">
+    <meta name="theme-color" content="#2f855a">
+
+
+            <script src="//d2wy8f7a9ursnm.cloudfront.net/v6/bugsnag.min.js"></script>
+        <script>window.bugsnagClient = bugsnag('98440cbeef759631f3d987ab45b26a79')</script>
+    
+    <script src="https://app.fantasy-calendar.com/js/app.js?id=dc397767f72c9af26a8131932282265e"></script>
+
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+    <script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+
+    
+
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css">
+
+    
+    
+    
+    
+    
+
+    <script>
+
+    window.baseurl = 'https://app.fantasy-calendar.com/';
+    window.apiurl = 'https://app.fantasy-calendar.com/'+'api/v1';
+
+    function isMobile() {
+        try{ document.createEvent("TouchEvent"); return true; }
+        catch(e){ return false; }
+    }
+
+    function deviceType() {
+        var width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+        var height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0),screenType;
+        if (isMobile()){
+            if ((width <= 650 && height <= 900) || (width <= 900 && height <= 650))
+                screenType = "Mobile Phone";
+            else
+                screenType = "Tablet";
+        }
+        else
+            screenType = "Desktop";
+        return screenType;
+    }
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Authorization': 'Bearer '+$('meta[name="api-token"]').attr('content')
+        },
+        data: {
+            api_token: $('meta[name="api-token"]').attr('content')
+        }
+    });
+
+    $(document).ajaxError(function(event, jqxhr, settings, thrownError) {
+        if(jqxhr.status === 422) {
+            return;
+        }
+
+        if(jqxhr.status === 503) {
+            if(jqxhr.responseJSON.message.length > 0) {
+                $.notify("Fantasy Calendar is in maintenance mode. Please try again later.\nReason: " + jqxhr.responseJSON.message);
+            } else {
+                $.notify("Fantasy Calendar is in maintenance mode. Please try that again later.");
+            }
+            return;
+        }
+
+        if(jqxhr.responseJSON.message.length > 0) {
+            $.notify("Error: " + jqxhr.responseJSON.message);
+        } else {
+            $.notify(thrownError + " (F12 to see more detail)");
+        }
+    });
+
+    $(document).ready(function(){
+
+        window.onerror = function(error, url, line) {
+            $.notify("Error:\n "+error+" \nin file "+url+" \non line "+line);
+        }
+
+        $.protip({
+            defaults: {
+                "delay-in": 2000,
+                position: 'bottom',
+                scheme: 'leaf',
+                classes: 'box-shadow accent-bg-color',
+                animate: 'bounceIn',
+                target: '#protip_container'
+            }
+        });
+
+        var cookiedomain = window.location.hostname.split('.')[window.location.hostname.split('.').length-2]+'.'+window.location.hostname.split('.')[window.location.hostname.split('.').length-1];
+        document.cookie = 'fantasycalendar_remember=; Max-Age=0; path=/; domain=' + cookiedomain;
+
+        $.trumbowyg.svgPath = '/images/icons.svg';
+
+        if (window.localStorage.getItem('inputs_collapsed') != null) {
+            toggle_sidebar(window.localStorage.getItem('inputs_collapsed') == 'true');
+        } else {
+            if (deviceType() == "Mobile Phone") {
+                toggle_sidebar(false);
+            }
+        }
+
+        if(window.navigator.userAgent.includes("LM-G850")) {
+            $("#input_container").addClass('sidebar-mobile-half');
+        }
+
+        if(window.navigator.userAgent.includes('Surface Duo') && !window.navigator.userAgent.includes('Surface Duo 2')) {
+            $("#input_container").addClass('sidebar-surface-duo');
+            $("#input_collapse_btn").addClass('sidebar-surface-duo');
+        }
+
+        if(window.navigator.userAgent.includes('Surface Duo 2')) {
+            $("#input_container").addClass('sidebar-surface-duo-2');
+            $("#input_collapse_btn").addClass('sidebar-surface-duo-2');
+        }
+    });
+
+    </script>
+
+    <script src="https://app.fantasy-calendar.com/js/vendor/sortable/jquery-sortable-min.js"></script>
+    <script src="https://app.fantasy-calendar.com/js/vendor/spectrum/spectrum.js"></script>
+    <script src="https://app.fantasy-calendar.com/js/vendor/alpine/cdn.js" defer></script>
+    <script src="https://app.fantasy-calendar.com/js/vendor/simplebar/simplebar.min.js" defer></script>
+
+    <script src="https://app.fantasy-calendar.com/js/calendar/header.js?id=b0f13983debd2cd71beee51d37e9b88f"></script>
+    <script src="https://app.fantasy-calendar.com/js/calendar/calendar_ajax_functions.js?id=e1e0bc275d3c58d8a0825a0df38da3c1"></script>
+    <script src="https://app.fantasy-calendar.com/js/calendar/calendar_functions.js?id=d5333b0ec3afffb5095be50d8c7da19e"></script>
+    <script src="https://app.fantasy-calendar.com/js/calendar/calendar_variables.js?id=2896bf5a0516efdbeb3d8ceb4cfac437"></script>
+    <script src="https://app.fantasy-calendar.com/js/calendar/calendar_weather_layout.js?id=20e6e08de85f20032248b11120d8e4d8"></script>
+    <script src="https://app.fantasy-calendar.com/js/calendar/calendar_day_data_layout.js?id=a309ba7081cb265cbc305458393ddb99"></script>
+    <script src="https://app.fantasy-calendar.com/js/calendar/calendar_season_generator.js?id=4fd533d0e00db6251d0cd2610da89619"></script>
+    <script src="https://app.fantasy-calendar.com/js/calendar/calendar_inputs_visitor.js?id=b3729b87aa00ad47795d5e8472e52305"></script>
+    <script src="https://app.fantasy-calendar.com/js/calendar/calendar_inputs_view.js?id=ea6fd134ce0aba587bc801b3eaee2fe8"></script>
+    <script src="https://app.fantasy-calendar.com/js/calendar/calendar_inputs_edit.js?id=20c83134197783ad1891680de4d3fe09"></script>
+    <script src="https://app.fantasy-calendar.com/js/calendar/calendar_manager.js?id=5cb5dc0129b3c06670abda297723d8b9"></script>
+    <script src="https://app.fantasy-calendar.com/js/calendar/calendar_presets.js?id=6b85f6756e5a0e090b1bf52ddc1be922"></script>
+    <script src="https://app.fantasy-calendar.com/js/calendar/calendar_workers.js?id=4941d2123a994d2391225652a74258f0"></script>
+
+            <link rel="stylesheet" href="https://app.fantasy-calendar.com/css/app-dark.css?id=95631b5b7fcade9559d413df405c2024">
+        <link rel="stylesheet" href="https://app.fantasy-calendar.com/js/vendor/spectrum/spectrum.css">
+    <link rel="stylesheet" href="https://app.fantasy-calendar.com/js/vendor/simplebar/simplebar.css">
+
+        <script>
+
+    $(document).ready(function(){
+
+        // This file is technically Javascript.
+// It's... Not permanent. I hope.
+
+    window.Perms = new Perms(
+        null,
+        false,
+        'free',
+        'guest'
+    );
+
+dark_theme = true;
+
+hash = `67c8eeb8fd044f165dd03df358662f21`;
+
+calendar_name = unescapeHtml("Vethera calendar");
+calendar_id = 85767;
+static_data = {"year_data":{"first_day":1,"overflow":true,"global_week":["Maundag","Trisdag","Ournsdag","Thorsdag","Frosdag","Larsdag","Saursdag"],"timespans":[{"name":"Deepwinter","type":"month","length":31,"interval":1,"offset":0},{"name":"Coldwane","type":"month","length":28,"interval":1,"offset":0},{"name":"Treeshake","type":"month","length":31,"interval":1,"offset":0},{"name":"Greengrowth","type":"month","length":30,"interval":1,"offset":0},{"name":"Bloomgrowth","type":"month","length":31,"interval":1,"offset":0},{"name":"Ebbsun","type":"month","length":30,"interval":1,"offset":0},{"name":"Floodsun","type":"month","length":31,"interval":1,"offset":0},{"name":"Highsun","type":"month","length":30,"interval":1,"offset":0},{"name":"Fruitfall","type":"month","length":31,"interval":1,"offset":0},{"name":"Fruitreap","type":"month","length":30,"interval":1,"offset":0},{"name":"Treewither","type":"month","length":31,"interval":1,"offset":0},{"name":"Coldwax","type":"month","length":30,"interval":1,"offset":0}],"leap_days":[{"name":"Leap day","intercalary":true,"timespan":1,"adds_week_day":false,"day":28,"week_day":"","interval":"4","offset":0,"not_numbered":false}]},"moons":[{"name":"Moon","cycle":"27.3","cycle_rounding":"round","shift":0,"granularity":24,"color":"#ffffff","shadow_color":"#292b4a","hidden":false}],"clock":{"enabled":true,"render":true,"hours":24,"minutes":60,"offset":0,"crowding":0},"seasons":{"data":[{"name":"Flowerfall","color":["[object Object]","[object Object]"],"time":{"sunrise":{"hour":5,"minute":18},"sunset":{"hour":19,"minute":26}},"timespan":2,"day":1},{"name":"Sunsreign","color":["[object Object]","[object Object]"],"time":{"sunrise":{"hour":4,"minute":30},"sunset":{"hour":20,"minute":30}},"timespan":5,"day":1},{"name":"Wiltleaf","color":["[object Object]","[object Object]"],"time":{"sunrise":{"hour":6,"minute":30},"sunset":{"hour":17,"minute":10}},"timespan":8,"day":1},{"name":"Hibernal","color":["[object Object]","[object Object]"],"time":{"sunrise":{"hour":8,"minute":20},"sunset":{"hour":16,"minute":29}},"timespan":11,"day":1}],"locations":[],"global_settings":{"season_offset":0,"weather_offset":0,"seed":1391380602,"temp_sys":"metric","wind_sys":"metric","cinematic":false,"enable_weather":false,"periodic_seasons":false,"color_enabled":false,"preset_order":[1,2,3,0]}},"eras":[],"settings":{"layout":"grid","comments":"none","show_current_month":false,"private":false,"allow_view":true,"only_backwards":true,"only_reveal_today":false,"hide_moons":false,"hide_clock":false,"hide_events":false,"hide_eras":false,"hide_all_weather":false,"hide_future_weather":false,"add_month_number":false,"add_year_day_number":false,"default_category":-1},"cycles":{"format":"","data":[]}};
+dynamic_data = {"year":1,"timespan":2,"day":27,"epoch":85,"custom_location":false,"location":null,"hour":16,"minute":44,"current_era":-1};
+
+is_linked = null;
+has_parent = null;
+parent_hash = null;
+parent_offset = null;
+
+events = [{"id":2304623,"name":"Flowerfall","data":{"has_duration":false,"duration":0,"show_first_last":false,"limited_repeat":false,"limited_repeat_num":0,"connected_events":[],"date":[],"conditions":[["Season","0",[0]],["&&"],["Season","8",[1]]],"search_distance":2},"description":"","event_category_id":null,"calendar_id":85767,"settings":{"color":"Green","text":"text","hide":false,"hide_full":false,"print":false},"created_at":"2024-03-27 20:38:19","updated_at":"2024-03-27 20:38:19","sort_by":0,"creator_id":64110},{"id":2304624,"name":"Sunsreign","data":{"has_duration":false,"duration":0,"show_first_last":false,"limited_repeat":false,"limited_repeat_num":0,"connected_events":[],"date":[],"conditions":[["Season","0",[1]],["&&"],["Season","8",[1]]],"search_distance":2},"description":"","event_category_id":null,"calendar_id":85767,"settings":{"color":"Green","text":"text","hide":false,"hide_full":false,"print":false},"created_at":"2024-03-27 20:38:19","updated_at":"2024-03-27 20:38:19","sort_by":1,"creator_id":64110},{"id":2304625,"name":"Wiltleaf","data":{"has_duration":false,"duration":0,"show_first_last":false,"limited_repeat":false,"limited_repeat_num":0,"connected_events":[],"date":[],"conditions":[["Season","0",[2]],["&&"],["Season","8",[1]]],"search_distance":2},"description":"","event_category_id":null,"calendar_id":85767,"settings":{"color":"Green","text":"text","hide":false,"hide_full":false,"print":false},"created_at":"2024-03-27 20:38:19","updated_at":"2024-03-27 20:38:19","sort_by":2,"creator_id":64110},{"id":2304626,"name":"Hibernal","data":{"has_duration":false,"duration":0,"show_first_last":false,"limited_repeat":false,"limited_repeat_num":0,"connected_events":[],"date":[],"conditions":[["Season","0",[3]],["&&"],["Season","8",[1]]],"search_distance":2},"description":"","event_category_id":null,"calendar_id":85767,"settings":{"color":"Green","text":"text","hide":false,"hide_full":false,"print":false},"created_at":"2024-03-27 20:38:19","updated_at":"2024-03-27 20:38:19","sort_by":3,"creator_id":64110}]
+event_categories = []
+
+last_static_change = new Date("2024-03-27 08:38:19")
+last_dynamic_change = new Date("2024-03-27 08:41:22")
+
+advancement = {
+    advancement_enabled: false,
+    advancement_real_rate: 1,
+    advancement_real_rate_unit: 'minutes',
+    advancement_rate: 1,
+    advancement_rate_unit: 'minutes',
+    advancement_webhook_url: '',
+    advancement_timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+}
+
+window.dispatchEvent(
+    new CustomEvent('calendar-loaded', {
+        detail: {
+            hash,
+            calendar_name,
+            calendar_id,
+            static_data,
+            dynamic_data,
+            is_linked,
+            has_parent,
+            parent_hash,
+            parent_offset,
+            events,
+            event_categories,
+            last_static_change,
+            last_dynamic_change,
+            advancement
+        }
+    })
+)
+
+        preview_date = clone(dynamic_data);
+        preview_date.follow = true;
+
+
+        set_up_view_inputs();
+        set_up_view_values();
+        set_up_visitor_values();
+
+        bind_calendar_events();
+
+        if(!evaluate_queryString(window.location.search)){
+            rebuild_calendar('calendar', dynamic_data);
+        }else{
+            rebuild_calendar('calendar', preview_date);
+        }
+
+        $('#current_year, #current_timespan, #current_day, #current_hour, #current_minute, #location_select').change(function(){
+            do_update_dynamic(hash);
+        });
+
+        last_mouse_move = Date.now();
+        poll_timer = setTimeout(check_dates, 5000);
+        instapoll = false;
+
+        $(window).focus(function(){
+            check_dates();
+        })
+
+        registered_mousemove_callbacks['view_update'] = function () {
+            last_mouse_move = Date.now();
+            if (instapoll) {
+                instapoll = false;
+                check_dates();
+            }
+        }
+
+        window.dispatchEvent(new CustomEvent("events-changed"));
+
+    });
+
+    function evaluate_queryString(queryString){
+
+        const urlParams = new URLSearchParams(queryString);
+
+        if(urlParams.has("year") && urlParams.has("month") && urlParams.has("day")){
+            let year = Number(urlParams.get('year'));
+            let timespan = Number(urlParams.get('month'));
+            let day = Number(urlParams.get('day'));
+
+            if(isNaN(year) || isNaN(timespan) || isNaN(day)) {
+                return false;
+            }
+
+            if(valid_preview_date(year, timespan, day) || window.Perms.player_at_least('co-owner')){
+
+                if(year === 0 && !static_data.settings.year_zero_exists){
+                    return false;
+                }
+                preview_date_manager.year = convert_year(static_data, year);
+
+                if(timespan < 0 || timespan > preview_date_manager.last_timespan){
+                    return false;
+                }
+                preview_date_manager.timespan = timespan;
+
+                if(day < 0 || day > preview_date_manager.num_days){
+                    return false;
+                }
+                preview_date_manager.day = day;
+
+                go_to_preview_date(true);
+                refresh_preview_inputs();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        if(urlParams.has('print')){
+            window.dispatchEvent(new CustomEvent('register-render-callback', {detail: print()}));
+            return true;
+        }
+
+    }
+
+    function check_dates(){
+
+        if((document.hasFocus() && (Date.now() - last_mouse_move) < 10000) || advancement.advancement_enabled){
+
+            instapoll = false;
+
+            check_last_change(hash, function(result){
+
+                new_dynamic_change = new Date(result.last_dynamic_change)
+                new_static_change = new Date(result.last_static_change)
+
+                if(new_static_change > last_static_change){
+
+                    last_dynamic_change = new_dynamic_change
+                    last_static_change = new_static_change
+
+                    get_all_data(hash, function(result){
+
+                        if(result.error){
+                            throw result.message;
+                        }
+
+                        static_data = clone(result.static_data);
+                        dynamic_data = clone(result.dynamic_data);
+
+                        check_update(true);
+                        evaluate_settings();
+                        eval_clock();
+                        poll_timer = setTimeout(check_dates, 5000);
+
+                    });
+
+                }else if(new_dynamic_change > last_dynamic_change){
+
+                    last_dynamic_change = new_dynamic_change
+
+                    get_dynamic_data(hash, function(result){
+
+                        if(result.error){
+                            throw result.message;
+                        }
+                        dynamic_data = clone(result.dynamic_data);
+
+                        check_update(false);
+                        evaluate_settings();
+                        eval_clock();
+                        poll_timer = setTimeout(check_dates, 5000);
+
+                    });
+
+                }else{
+
+                    poll_timer = setTimeout(check_dates, 5000);
+
+                }
+
+            });
+
+        }else{
+
+            instapoll = true;
+
+        }
+
+    }
+
+    function check_update(rebuild){
+
+        var data = dynamic_date_manager.compare(dynamic_data);
+
+        dynamic_date_manager = new date_manager(dynamic_data.year, dynamic_data.timespan, dynamic_data.day);
+
+        if(preview_date.follow){
+            preview_date = clone(dynamic_data);
+            preview_date.follow = true;
+            preview_date_manager = new date_manager(preview_date.year, preview_date.timespan, preview_date.day);
+        }
+
+        current_year.val(dynamic_data.year);
+
+        repopulate_timespan_select(current_timespan, dynamic_data.timespan, false);
+
+        repopulate_day_select(current_day, dynamic_data.day, false);
+
+        display_preview_back_button();
+
+        if(rebuild || ((data.rebuild || static_data.settings.only_reveal_today) && preview_date.follow)){
+            rebuild_calendar('calendar', dynamic_data);
+            set_up_visitor_values();
+        }else{
+            update_current_day(false);
+        }
+
+        set_up_view_values();
+
+    }
+    if(debounce !== undefined){
+        var do_update_dynamic = debounce(function(type){
+            update_view_dynamic(hash);
+        }, 500);
+    }
+
+    </script>
+    <script>
+
+    $(document).ready(function(){
+
+        $('#btn_share, .share-body').click(function(){
+            var copyText = document.querySelector(".share-body");
+            copyText.select();
+            document.execCommand("copy");
+            $.notify(
+                "Copied to clipboard!",
+                "success"
+            );
+        });
+
+    })
+
+    </script>
+</head>
+
+<body class="page-calendars-show ">
+
+<div id="protip_container" class='d-print-none'></div>
+
+<div id="content">
+    <div id="loading_background" class='basic-background hidden'>
+        <img class='loading_spinner' src='https://app.fantasy-calendar.com/resources/icons/loader_white.png'>
+        <div id='loading_information_text' class='hidden bold-text'>Informational Text</div>
+        <div id='loading_text' class='italics-text'>Random text</div>
+
+        <div class="loading_bar hidden"></div>
+
+        <div class='loading_cancel_button_container'>
+            <button type='button' class='btn btn-danger full loading_cancel_button hidden'>Cancel</button>
+        </div>
+    </div>
+
+        <div id="generator_container">
+        <div id='weather_tooltip_box'>
+	<div class='bold-text day_title hidden'>Day Title:</div>
+	<div class='day_container hidden'></div>
+	<div class='bold-text moon_title hidden'>Moons:</div>
+	<div class='moon_container hidden flex justify-content-center flex-wrap'></div>
+	<div class='weather_title bold-text'>Weather:</div>
+	<div><span class='bold-text'>Description:</span> <span class='weather_temp_desc'></span></div>
+	<div><span class='bold-text'>Temperature:</span> <span class='weather_temp'></span></div>
+	<div><span class='bold-text'>Wind:</span> <span class='weather_wind'></span></div>
+	<div><span class='bold-text'>Precipitation:</span> <span class='weather_precip'></span></div>
+	<div><span class='bold-text'>Clouds:</span> <span class='weather_clouds'></span></div>
+	<div><span class='bold-text'>Feature:</span> <span class='weather_feature'></span></div>
+</div>
+
+<div id="weather_background" class='basic-background'>
+	<div class='basic-container'>
+		<div class='basic-wrapper'>
+			<div class='basic-form weather-basic-form'>
+				<h3 id='display_weather_name'>Weather</h3>
+				<div><span class='italics-text weather_date'></span></div>
+				<div><span class='bold-text'>Temperature description:</span> <span class='weather_temp_desc'></span></div>
+				<div><span class='bold-text'>Temperature:</span> <span class='weather_temp'></span></div>
+				<div><span class='bold-text'>Wind:</span> <span class='weather_wind'></span><span class='weather_wind_velocity'></span></div>
+				<div><span class='weather_wind_description'></span></div>
+				<div><span class='bold-text'>Precipitation:</span> <span class='weather_precip'></span></div>
+				<div><span class='bold-text'>Clouds:</span> <span class='weather_clouds'></span></div>
+				<div><span class='bold-text'>Feature:</span> <span class='weather_feature'></span></div>
+			</div>
+		</div>
+	</div>
+</div>
+        <div id='day_data_tooltip_box'>
+	<h4 class='bold-text text-center'>Day data:</h4>
+	<table>
+		<tr class='hidden day_data_year' data_key="year"><td class='bold-text'>Year:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_era_year' data_key="era_year"><td class='bold-text'>Era year:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_timespan_index' data_key="timespan_index"><td class='bold-text'>Month index:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_timespan_number' data_key="timespan_number"><td class='bold-text'>Month number:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_timespan_count' data_key="timespan_count"><td class='bold-text'>Month count:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_num_timespans' data_key="num_timespans"><td class='bold-text'>Total month count:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_timespan_name' data_key="timespan_name"><td class='bold-text'>Month name:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_epoch' data_key="epoch"><td class='bold-text'>Epoch:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_day' data_key="day"><td class='bold-text'>Day:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_inverse_day' data_key="inverse_day"><td class='bold-text'>Inverse day:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_leap_day' data_key="leap_day"><td class='bold-text'>Leap day index:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_year_day' data_key="year_day"><td class='bold-text'>Year day:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_week_day' data_key="week_day"><td class='bold-text'>Week day:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_week_day_name' data_key="week_day_name"><td class='bold-text'>Week day name:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_week_day_num' data_key="week_day_num"><td class='bold-text'>Week day num:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_inverse_week_day_num' data_key="inverse_week_day_num"><td class='bold-text'>Inverse week day num:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_month_week_num' data_key="month_week_num"><td class='bold-text'>Month week count:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_inverse_month_week_num' data_key="inverse_month_week_num"><td class='bold-text'>Inverse month week count:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_inverse_year_week_num' data_key="inverse_year_week_num"><td class='bold-text'>Inverse year week count:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_year_week_num' data_key="year_week_num"><td class='bold-text'>Year week count:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_total_week_num' data_key="total_week_num"><td class='bold-text'>Total week count:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_moon_phase' data_key="moon_phase"><td class='bold-text'>Moon phase:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_moon_phase_num_month' data_key="moon_phase_num_month"><td class='bold-text'>Moon phase month count:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_moon_phase_num_year' data_key="moon_phase_num_year"><td class='bold-text'>Moon phase year count:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_moon_phase_num_epoch' data_key="moon_phase_num_epoch"><td class='bold-text'>Moon phase count total:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_intercalary' data_key="intercalary"><td class='bold-text'>Is intercalary:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_era' data_key="era"><td class='bold-text'>Era:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_cycle' data_key="cycle"><td class='bold-text'>Current cycle(s):</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_season' data_key="season_name"><td class='bold-text'>Season name:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_season' data_key="season_index"><td class='bold-text'>Season index:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_season' data_key="season_perc"><td class='bold-text'>Season percentage:</td> <td class='data_container'></td></tr>
+		<tr class='hidden day_data_season' data_key="season_day"><td class='bold-text'>Season day:</td> <td class='data_container'></td></tr>
+	</table>
+</div>        <div
+	x-data='moon_tooltip'
+	@moon-mouse-enter.window="
+		element = $event.detail.element;
+		title = $event.detail.title;
+		show = true;
+		$nextTick(() => { set_popper() });
+	"
+	@moon-mouse-leave.window="
+		element = false;
+		title = '';
+		show = false;
+	"
+	@scroll.window="
+		element = false;
+		title = '';
+		show = false;
+	"
+	id='moon_tooltip_box'
+	x-show="show"
+    x-cloak
+>
+	<div x-text='title'></div>
+</div>
+        <div
+    id="event_show_background"
+    class='clickable_background'
+    x-data="CalendarEventViewer"
+    @event-viewer-modal-view-event.window="view_event"
+    @event-viewer-modal-load-comments.window="load_comments"
+    @event-viewer-modal-submit-comment.window="submit_comment"
+    @event-viewer-modal-add-comment.window="add_comment"
+    @event-viewer-modal-delete-comment.window="delete_comment"
+    @event-viewer-modal-start-edit-comment.window="start_edit_comment"
+    @event-viewer-modal-edit-comment.window="edit_comment"
+    @keydown.escape.window="open && confirm_close($event)"
+    x-show.immediate='open'
+    x-cloak
+>
+	<div class='modal-basic-container'>
+		<div class='modal-basic-wrapper'>
+			<div class='modal-wrapper' @mousedown.outside="confirm_close($event)" x-transition x-show="open">
+
+				<div class='close-ui-btn-bg'></div>
+				<i class="close_ui_btn fa fa-times" @click='confirm_close($event)'></i>
+
+				<div class='row no-gutters modal-form-heading'>
+					<h3 class="d-flex align-items-center">
+                        <span class='event_name' x-text='data.name'>Editing Event</span>
+                        <i class="fas fa-pencil-alt event_header_action protip" data-pt-position='bottom' data-pt-title="Edit event" @click='confirm_edit' x-show='can_edit'></i>
+                        <i class="fas fa-clone event_header_action protip" data-pt-position='bottom' data-pt-title="Clone event" @click='confirm_clone' x-show='can_edit && !era'></i></h3>
+				</div>
+
+				<div class='row'>
+					<div class="col-12" x-html='data.description'></div>
+				</div>
+
+				<div id='event_comment_mastercontainer' x-show="!era" class="row">
+
+					<div class="col-12">
+						<hr>
+
+						<h4>Comments:</h4>
+
+						<div class='row'>
+							<div id='event_comments' class='col-12'>
+                                <span x-show="comments.length == 0 && can_comment_on_event">No comments on this event yet... Maybe you'll be the first?</span>
+                                <span x-show="!can_comment_on_event">You need to save your calendar before comments can be added to this event!</span>
+                                <template x-for='(comment, index) in comments'>
+                                    <div
+                                        class='container p-2 rounded event_comment'
+                                        :date='comment.date'
+                                        :comment_id='comment.id'
+                                        :class='{
+                                            "comment_owner": !comment.comment_owner,
+                                            "calendar_owner": comment.calendar_owner,
+                                        }'
+                                        >
+                                        <div class='row mb-1'>
+                                            <div class='col-auto'>
+                                                <p><span class='username' x-text="comment.username"></span><span class='date' x-text='" - "+comment.date'></span></p>
+                                            </div>
+                                            <div class='col-auto ml-auto' x-show="comment.comment_owner || comment.can_delete">
+                                                <button class="calendar_action btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" x-show="!comment.editing" type="button" :id="'dropdownButton-comment'+comment.id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                                <div class="dropdown-menu dropdown-menu-right" :aria-labelledby="'dropdownButton-comment'+comment.id">
+                                                    <button class='dropdown-item' @click="start_edit_comment(comment)" x-show="comment.comment_owner">
+                                                        <i class="fa fa-edit"></i> Edit
+                                                    </button>
+                                                    <button class="dropdown-item" @click="delete_comment(comment)" x-show="comment.can_delete">
+                                                        <i class="fa fa-calendar-times"></i> Delete
+                                                    </button>
+                                                </div>
+                                                <button class='btn btn-sm btn-primary submit_edit_comment_btn ml-2' @click='submit_edit_comment(comment)' x-show='comment.editing'>Submit</button>
+                                                <button class='btn btn-sm btn-danger cancel_edit_comment_btn ml-2' @click='cancel_edit_comment(comment)' x-show='comment.editing'>Cancel</button>
+                                            </div>
+                                        </div>
+                                        <div class='row'>
+                                            <div class='col'>
+                                                <div class='comment' x-show="!comment.editing" x-html='comment.content'></div>
+
+                                                <div class="rounded border" x-show="comment.editing">
+                                                    <div :id="'comment-editor-'+comment.index"><div></div></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+												</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div
+    x-data="CalendarEventEditor"
+    class='clickable_background'
+    id='event_editor'
+    @event-editor-modal-new-event.window="create_new_event($event); $nextTick(() => {
+        document.querySelector('.event_editor_name').focus();
+    });"
+    @event-editor-modal-edit-event.window="edit_event($event); $nextTick(() => {
+        document.querySelector('.event_editor_name').focus();
+    });"
+    @event-editor-modal-clone-event.window="clone_event($event); $nextTick(() => {
+        document.querySelector('.event_editor_name').focus();
+    });"
+    @event-editor-modal-delete-event.window="confirm_delete_event"
+    @keydown.escape.window="esc_clicked($event)"
+    x-show.immediate='open'
+    x-cloak
+>
+
+    <div class='modal-basic-container'>
+		<div class='modal-basic-wrapper'>
+			<form id="event-form" class="modal-wrapper container" action="post" @mousedown.outside="confirm_close" x-transition x-show="open">
+
+				<div class='close-ui-btn-bg'></div>
+				<i class="close_ui_btn fas fa-times" @click='confirm_close'></i>
+
+				<div class='row no-gutters mb-1 modal-form-heading'>
+					<h3 class='event_action_type d-flex align-items-center'>
+                        <span x-text="creation_type"></span>
+                        <i class="fas fa-eye event_header_action protip" data-pt-position='bottom' data-pt-title="Preview event" @click='confirm_view' x-show="!new_event"></i>
+                        <i class="fas fa-clone event_header_action protip" data-pt-position='bottom' data-pt-title="Clone event" @click='confirm_clone' x-show="!new_event"></i>
+                    </h3>
+				</div>
+
+				<div class='row no-gutters my-1'>
+					<input maxlength="255" type='text' class='form-control event_editor_name' x-model='working_event.name' placeholder='Event name' autofocus='' @keydown.enter="save_event" @keydown.esc.stop />
+				</div>
+
+				<div class='row no-gutters my-1'>
+					<textarea class='form-control event_desc editable' x-ref='description' placeholder='Event description' autofocus=''></textarea>
+				</div>
+
+                
+                
+                    <div class='row no-gutters mt-2'>
+                        <div class='separator'></div>
+                    </div>
+
+                    <div class='row no-gutters mt-2'>
+                        <h4 @click='settings_open = !settings_open' class='cursor-pointer user-select-none'>
+                            <i class="icon fas" :class='{
+                                "fa-angle-right": !settings_open,
+                                "fa-angle-down": settings_open,
+                            }'></i>
+                            Settings
+                        </h4>
+                    </div>
+
+                    <div class='container settings_container p-0' x-transition.origin.top x-show="settings_open">
+
+
+                    
+                    <div class='row no-gutters my-2'>
+                        <div class='separator'></div>
+                    </div>
+
+
+                    
+                    <div class='row no-gutters'>
+                        <div class='col'>
+                            <label class='form-control checkbox'>
+                                <input type='checkbox' class='event_setting' x-model='working_event.settings.hide'> Hide event
+                                                            </label>
+                        </div>
+                    </div>
+
+                    
+                    <div class='row no-gutters'>
+                        <div class='col pr-1'>
+                            <h5 class='modal-form-heading'>Color:</h5>
+                            <select x-model='working_event.settings.color' class='form-control'>
+                                <option>Dark-Solid</option>
+                                <option>Red</option>
+                                <option>Pink</option>
+                                <option>Purple</option>
+                                <option>Deep-Purple</option>
+                                <option>Blue</option>
+                                <option>Light-Blue</option>
+                                <option>Cyan</option>
+                                <option>Teal</option>
+                                <option>Green</option>
+                                <option>Light-Green</option>
+                                <option>Lime</option>
+                                <option>Yellow</option>
+                                <option>Orange</option>
+                                <option>Blue-Grey</option>
+                            </select>
+                        </div>
+
+                        <div class='col pl-1'>
+                            <h5 class='modal-form-heading'>Display:</h5>
+                            <select x-model='working_event.settings.text' class='form-control'>
+                                <option value="text">Just text</option>
+                                <option value="dot">• Dot with text</option>
+                                <option value="background">Background</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class='row no-gutters mt-3'>
+                        Event look:
+                    </div>
+                    <div class='row no-gutters mt-0'>
+                        <div class='col-4'>
+                            <div class='event-text-output event' :class='working_event.settings.color + " " + working_event.settings.text'>Event (visible)</div>
+                        </div>
+                        <div class='col-4 px-1'>
+                            <div class='event-text-output hidden_event event' :class='working_event.settings.color + " " + working_event.settings.text'>Event (hidden)</div>
+                        </div>
+                    </div>
+
+                    <div class='row no-gutters'>
+                        <div class='col'>
+                            <div id='event_messagebox'></div>
+                        </div>
+                    </div>
+				</div>
+
+                <div class='row no-gutters mt-2'>
+                    <div class='separator'></div>
+                </div>
+
+				<div class='row no-gutters my-1'>
+					<div class='btn btn-lg btn-primary btn-block' @click="save_event">Save</div>
+				</div>
+				<div class='row no-gutters my-1'>
+                    <div class='btn btn-sm btn-danger btn-block' x-show='!new_event' @click='confirm_delete_event({detail: {event_id: event_id}})'>Delete</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div
+    x-data="CalendarHTMLEditor"
+    class='clickable_background'
+    id="html_edit_background"
+    @html-editor-modal-edit-html.window="edit_html"
+    @keydown.escape.window="open && confirm_close($event)"
+    x-show.immediate='open'
+    x-cloak
+>
+	<div class='modal-basic-container'>
+		<div class='modal-basic-wrapper'>
+			<form id="html-form" class="modal-wrapper" action="post" @mousedown.outside="confirm_close($event)" x-transition x-show="open">
+
+				<div class='close-ui-btn-bg'></div>
+				<i class="close_ui_btn fas fa-times-circle" @click='confirm_close'></i>
+
+				<div class='row no-gutters mb-1 modal-form-heading'>
+					<h2 class='event_action_type'>
+                        <span>Editing Era Description</span>
+                        <i class="fas fa-eye event_header_action protip" data-pt-position='bottom' data-pt-title="Preview" @click='confirm_view'></i>
+                    </h2>
+				</div>
+
+				<div class='row'>
+					<textarea class='form-control' x-ref='html_input' autofocus=''></textarea>
+				</div>
+
+				<div class='btn btn-lg btn-primary btn-block' @click="save_html">Save</div>
+			</form>
+		</div>
+	</div>
+</div>
+        <div id="input_container" class="d-print-none d-flex flex-column justify-content-between">
+    <div>
+        <nav class="navbar-expand navbar-dark bg-accent sticky-top">
+    <div class="collapse navbar-collapse" id="collapsemenu">
+        <ul class="navbar-nav d-flex justify-content-between align-items-center w-100">
+            <li class="nav-item active">
+                                                    <a class="nav-link" href="https://app.fantasy-calendar.com"><i class="fa fa-arrow-left"></i> Back To Fantasy-Calendar</a>
+                            </li>
+
+            <li class="nav-item" x-data="{ toggle() { window.toggle_sidebar(); } }">
+                <button class="nav-link btn py-0 mr-2" @click.prevent="toggle">
+                    <i class="fa fa-chevron-left"></i><i class="fa fa-chevron-left"></i>
+                </button>
+            </span>
+        </ul>
+    </div>
+</nav>
+
+        <div class='title-text center-text mt-0 mb-0'>Vethera calendar</div>
+        <div class="center-text mt-0 mb-3">By Pharnapus</div>
+
+        <div class='d-flex flex-column mx-3 my-2'>
+            <div class="input-group">
+                <input type="text" class="form-control form-control-sm share-body" readonly value="https://app.fantasy-calendar.com/calendars/67c8eeb8fd044f165dd03df358662f21"/>
+                <div class="input-group-append">
+                    <button id="btn_share" type="button" class='btn btn-sm btn-secondary btn-block'>Copy URL</button>
+                </div>
+            </div>
+        </div>
+
+        <div class='d-flex mt-3 mx-3'>
+                        <button type='button' onclick="print()" class="btn w-100 btn-sm btn-secondary">
+                Print
+                </a>
+        </div>
+
+
+        <!---------------------------------------------->
+        <!---------------- CURRENT DATE ---------------->
+        <!---------------------------------------------->
+
+        <div id='clock' class='mt-3'>
+            <canvas style="z-index: 2;" id="clock_face"></canvas>
+            <canvas style="z-index: 1;" id="clock_sun"></canvas>
+            <canvas style="z-index: 0;" id="clock_background"></canvas>
+        </div>
+
+        <div x-show="shouldShow" x-data="{
+        activeDateAdjustment:  'preview' ,
+        shouldShow: false,
+        calculateShouldShow: function () {
+        this.shouldShow = window.Perms.player_at_least('co-owner') || static_data.settings.allow_view;
+        },
+        }" @calendar-loaded.window="calculateShouldShow">
+            <ul class="nav justify-content-center nav-tabs mx-3 mt-3">
+                                <li class="nav-item"><a href="javascript:;" class="nav-link px-2 small" :class="{ 'active': activeDateAdjustment === 'preview' }" @click="activeDateAdjustment = 'preview'">Preview date</a></li>
+                <li class="nav-item"><a href="javascript:;" class="nav-link px-2 small" :class="{ 'active': activeDateAdjustment === 'relative' }" @click="activeDateAdjustment = 'relative'">Relative math</a></li>
+            </ul>
+
+            
+
+            <div class='date_control preview_date_controls mx-3 mt-3' :class="{
+                    'd-flex flex-column': activeDateAdjustment === 'preview',
+                    'd-none': activeDateAdjustment !== 'preview' || !shouldShow
+                }">
+                <div class='input-group protip mt-2' value='target' data-pt-position='right' data-pt-title="The preview year">
+                    <div class='input-group-prepend'>
+                        <button type='button' class='btn btn-danger sub_year' id='sub_target_year'><i class="icon-minus"></i></button>
+                    </div>
+                    <input class='form-control year-input' id='target_year' type='number'>
+                    <div class='input-group-append'>
+                        <button type='button' class='btn btn-success add_year' id='add_target_year'><i class="icon-plus"></i></button>
+                    </div>
+                </div>
+
+                <div class='input-group protip mt-2' value='target' data-pt-position='right' data-pt-title="The preview month of the preview year">
+                    <div class='input-group-prepend'>
+                        <button type='button' class='btn btn-danger sub_timespan' id='sub_target_timespan'><i class="icon-minus"></i></button>
+                    </div>
+                    <select class='form-control timespan-list inclusive date' id='target_timespan'></select>
+                    <div class='input-group-append'>
+                        <button type='button' class='btn btn-success add_timespan' id='add_target_timespan'><i class="icon-plus"></i></button>
+                    </div>
+                </div>
+
+                <div class='input-group protip mt-2' value='target' data-pt-position='right' data-pt-title="The current day of the preview month">
+                    <div class='input-group-prepend'>
+                        <button type='button' class='btn btn-danger sub_day' id='sub_target_day'><i class="icon-minus"></i></button>
+                    </div>
+                    <select class='form-control timespan-day-list inclusive date' id='target_day'></select>
+                    <div class='input-group-append'>
+                        <button type='button' class='btn btn-success add_day' id='add_target_day'><i class="icon-plus"></i></button>
+                    </div>
+                </div>
+
+                <div class='btn btn-success full mt-2' id='go_to_preview_date'>Jump to preview date</div>
+            </div>
+
+            <div class="mx-3 mt-3" :class="{ 'd-flex flex-column': activeDateAdjustment === 'relative', 'd-none': activeDateAdjustment !== 'relative' }">
+                <div class="input-group">
+                    <input type='number' class="form-control mt-2 px-2" id='unit_years' placeholder="Years (+/-)">
+                    <input type='number' class="form-control mt-2 px-2" id='unit_months' placeholder="Months (+/-)">
+                    <input type='number' class="form-control mt-2 px-2" id='unit_days' placeholder="Days (+/-)">
+                </div>
+                <div class='my-2 row no-gutters'>
+                    <div class="input-group">
+                        <input type='number' class="form-control px-2" id='unit_hours' placeholder="Hours (+/-)">
+                        <div class="input-group-prepend input-group-append"><span class="input-group-text">:</span></div>
+                        <input type='number' class="form-control px-2" id='unit_minutes' placeholder="Minutes (+/-)">
+                    </div>
+                </div>
+
+                <div class="d-flex mt-3">
+                    <span class="full text-center">Apply the above to</span>
+                </div>
+
+                <div class="d-flex">
+                                            <button type="button" step="1.0" class="btn btn-secondary btn-block mt-2" id='preview_date_btn'>Preview date</button>
+                                    </div>
+            </div>
+
+            <div class="d-flex flex-column mx-3">
+                <div class='btn btn-info hidden mt-2' disabled id='reset_preview_date_button'>Jump to current date</div>
+            </div>
+
+            <div class="full px-3 mt-3">
+                <div class="separator full"></div>
+            </div>
+
+        </div>
+
+
+        
+            </div>
+
+    <div class="text-center full mt-5" style="justify-self: end;">
+        <small class="copyright d-inline-block mb-2">Copyright © 2024 Fantasy Computerworks Ltd <br> <a href="https://app.fantasy-calendar.com/terms-and-conditions">Terms and Conditions</a> - <a href="https://app.fantasy-calendar.com/privacy-policy">Privacy and Cookies Policy</a></small>
+    </div>
+</div>
+
+
+<div id="calendar_container">
+	<div id="top_follower" :class="{ 'single_month': apply == 'single_month' }" x-data="{ apply: '', toggle() { window.toggle_sidebar(); } }" @layout-change.window="apply = $event.detail.apply">
+
+        <div class='flex-shrink-1 is-active' id='input_collapse_btn'>
+            <button class="btn btn-secondary">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+
+		<div class='btn_container hidden'>
+			<button class='btn btn-secondary btn_preview_date hidden d-print-none sub_year' disabled fc-index='year' value='-1'>< Year</button>
+			<button class='btn btn-secondary btn_preview_date hidden d-print-none sub_month' disabled fc-index='timespan' value='-1'>
+                <span x-cloak x-show="apply == 'single_month'"><i class="fa fa-arrow-left"></i></span>
+            </button>
+		</div>
+
+        <div class='reset_preview_date_container btn_container left hidden'>
+            <button type='button' class='btn btn-success reset_preview_date protip d-print-none' data-pt-position="bottom" data-pt-title='Takes you back to the current date of this calendar' >< Current</button>
+        </div>
+
+        <div class="follower_center flex-grow-1">
+            <div id='top_follower_content'><div class='year'></div><div class='cycle'></div></div>
+        </div>
+
+        <div class='reset_preview_date_container btn_container right hidden'>
+            <button type='button' class='btn btn-success reset_preview_date protip d-print-none' data-pt-position="bottom" data-pt-title='Takes you back to the current date of this calendar' >Current ></button>
+        </div>
+
+		<div class='btn_container hidden'>
+			<button class='btn btn-secondary btn_preview_date hidden d-print-none add_year' disabled fc-index='year' value='1'>Year ></button>
+			<button class='btn btn-secondary btn_preview_date hidden d-print-none add_month' disabled fc-index='timespan' value='1'>
+                <span x-cloak x-show="apply == 'single_month'"><i class="fa fa-arrow-right"></i></span>
+            </button>
+		</div>
+
+	</div>
+
+    <div id='calendar' x-data="CalendarRenderer" :class="{ 'single_month': render_data.current_month_only }" x-ref="calendar_renderer">
+
+    <div class="modal_background w-100" x-show="!loaded && render_data.timespans.length">
+        <div id="modal" class="creation mt-5 py-5 d-flex flex-column align-items-center justify-content-center">
+            <h3 class="text-center" x-text="loading_message"></h3>
+            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+
+    <template
+        @render-data-change.window="
+            pre_render();
+            load_calendar($event);
+            $nextTick(() => { post_render($dispatch) });
+        "
+        @update-epochs.window="update_epochs"
+        x-for="(timespan, index) in render_data.timespans"
+        :key="timespan.id"
+    >
+        <div class="timespan_container"
+             :class='render_data.render_style'
+             x-show='loaded && render_data.timespans.length'
+             x-cloak
+        >
+
+            <div class='timespan_name' x-text='timespan.title' x-show="timespan.show_title"></div>
+
+            <div class="timespan_row_container">
+                <div class="timespan_row_names" x-show="timespan.show_weekdays">
+                    <template x-for="weekday in timespan.weekdays">
+                        <div class="week_day_name" x-text="weekday"></div>
+                    </template>
+                </div>
+
+                <template x-for="(week, index) in timespan.days">
+                    <div class="timespan_row">
+                        <template x-for="day in week">
+                            <div :class="{
+                            'timespan_day': day.type == 'day',
+                            'timespan_overflow': day.type == 'overflow',
+                            'timespan_day empty_timespan_day': day.type == 'empty',
+                            'current_day': day.epoch == render_data.current_epoch,
+                            'season_color_enabled': day.season_color,
+                            'preview_day': day.epoch == render_data.preview_epoch && render_data.preview_epoch != render_data.current_epoch,
+                        }" :epoch="day.epoch">
+                                <div class="day_row text" x-show="day.text" x-text="day.text"></div>
+                                <div class="day_row d-flex justify-content-between">
+                                    <div class="number" x-text="day.number"></div>
+
+                                    <div class="weather_popup center"
+                                         x-show="day.weather_icon"
+                                         @click="weather_click(day, $event)"
+                                         @mouseenter="weather_mouse_enter(day, $event)"
+                                         @mouseleave="weather_mouse_leave"
+                                    ><i :class="day.weather_icon"></i></div>
+
+                                    <div class="season_color" x-show="day.season_color" :style="'background-color:'+day.season_color"></div>
+                                </div>
+
+                                <div class="day_row flex justify-content-center flex-wrap" x-show="day.moons.length > 0">
+                                    <template x-for="moon in day.moons">
+                                        <svg class="moon"
+                                             :moon_id="moon.index"
+                                             preserveAspectRatio="xMidYMid"
+                                             width="28"
+                                             height="28"
+                                             viewBox="0 0 32 32"
+                                             @mouseenter="moon_mouse_enter(moon, $event)"
+                                             @mouseleave="moon_mouse_leave"
+                                        >
+                                            <circle cx="16" cy="16" r="10" class="lunar_background" :style="`fill: ${moon.color};`" />
+                                            <path class="lunar_shadow" :style="`fill: ${moon.shadow_color};`" x-show="moon.path" :d="moon.path"/>
+                                            <circle cx="16" cy="16" r="10" class="lunar_border"/>
+                                        </svg>
+                                    </template>
+                                </div>
+
+                                <div class="day_row event_container" x-show="day.events">
+                                    <template x-for="calendar_event in day.events">
+                                        <div class="event"
+                                            :class="calendar_event.class"
+                                            x-text="calendar_event.name"
+                                            :title="calendar_event.name"
+                                            :event_id="calendar_event.index"
+                                            @click="$dispatch('event-viewer-modal-view-event', { event_id: calendar_event.index, era: calendar_event.era, epoch: day.epoch })"
+                                        ></div>
+                                    </template>
+                                </div>
+
+                                <button class="btn_create_event btn btn-success day_row flex-grow" @click="$dispatch('event-editor-modal-new-event', { epoch: day.epoch })" :epoch="day.epoch" x-show="day.show_event_button">Create event</button>
+
+                                <div class="day_row">
+                                    <div class="year_day" x-show="day.year_day" x-text="day.year_day"></div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </template>
+</div>
+</div>
+    </div>
+
+    </div>
+</body>
+</html>
