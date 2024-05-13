@@ -145,7 +145,7 @@ Source https://codepen.io/ismailvtl/pen/KrVrbp
 //check the console for date click event
 
 function CalendarControl() {
-  const calendar = new Date();
+  const calendar = new Date("1069");
   const calendarControl = {
     localDate: new Date(),
     calWeekDays: ["Saursdag", "Maundag", "Trisdag", "Ournsdag", "Thorsdag", "Frosdag", "Larsdag"],
@@ -269,7 +269,7 @@ function CalendarControl() {
           let currentMonth = calendarControl.localDate.getMonth() + 1;
           let changedMonth = calendar.getMonth() + 1;
           let currentYear = calendarControl.localDate.getFullYear();
-          let changedYear = calendar.getFullYear();
+          let changedYear = calendar.getFullYear()-955;
           if (
             currentYear === changedYear &&
             currentMonth === changedMonth &&
