@@ -196,7 +196,7 @@ function CalendarControl() {
     },
     navigateToCurrentMonth: function() {
       let currentMonth = calendarControl.localDate.getMonth();
-      let currentYear = calendarControl.localDate.getFullYear();
+      let currentYear = calendarControl.localDate.getFullYear()-955;
       calendar.setMonth(currentMonth);
       calendar.setYear(currentYear);
       calendarControl.attachEventsOnNextPrev();
@@ -234,7 +234,7 @@ function CalendarControl() {
         ${calendarControl.calWeekDays[calendarControl.localDate.getDay()]}, 
         ${calendarControl.localDate.getDate()}, 
         ${calendarControl.calMonthName[calendarControl.localDate.getMonth()]} 
-        ${calendarControl.localDate.getFullYear()}
+        ${calendarControl.localDate.getFullYear()-955}
       </div>
       <div class="calendar-body"></div></div>`;
     },
